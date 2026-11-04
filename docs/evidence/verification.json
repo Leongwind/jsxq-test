@@ -1,0 +1,37 @@
+{
+  "bffTests": 16,
+  "webTests": 6,
+  "pythonTests": 24,
+  "javaTests": 10,
+  "javaFailures": 0,
+  "javaErrors": 0,
+  "initialBrowserTests": 4,
+  "fullChainScreenshotTests": 2,
+  "containerPlatform": "linux/arm64",
+  "llmTestModeVerified": true,
+  "liveLlmVerified": true,
+  "latestBrowserTests": 4,
+  "rollbackVerified": true,
+  "rollbackSequence": [
+    "bba0256",
+    "4150188",
+    "bba0256"
+  ],
+  "baselineCiRun": "https://github.com/Leongwind/jsxq-test/actions/runs/41800911602",
+  "baselineCiConclusion": "success",
+  "commitMessages": "Chinese, original author/committer dates and source trees preserved",
+  "liveLlm": {
+    "mode": "live",
+    "model": "deepseek-flash",
+    "score": 90,
+    "matched": 3,
+    "missing": 1,
+    "requestId": "fe190221-97ad-4ee1-978d-fcf86c066bd3",
+    "sourceCommit": "10de49d"
+  },
+  "chineseHistoryCiRun": "https://github.com/Leongwind/jsxq-test/actions/runs/41803177559",
+  "chineseHistoryCiConclusion": "success",
+  "liveBrowserTests": 1,
+  "liveBrowserModeAssertion": "live",
+  "liveBrowserScreenshot": "apps/web/evidence/live-desktop.png"
+}

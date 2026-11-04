@@ -1,0 +1,2 @@
+<script setup lang="ts">import { NSkeleton } from 'naive-ui'</script>
+<template><div class="loading-report"><div class="loading-orbit"><span></span><span></span><span></span></div><span class="eyebrow">分析进行中</span><h2>正在校准你的岗位坐标</h2><p>请求正经过 BFF、岗位服务与分析服务。LLM 提取后将由本地规则验证证据并计算分数。</p><div class="skeleton-stack"><NSkeleton height="96px" :sharp="false"/><NSkeleton height="48px" :sharp="false"/><NSkeleton height="48px" :sharp="false"/></div></div></template>

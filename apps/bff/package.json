@@ -1,0 +1,7 @@
+{
+  "name": "careerlens-bff", "version": "1.0.0", "private": true, "type": "module",
+  "engines": {"node": ">=24"},
+  "scripts": {"dev":"tsx watch src/server.ts", "build":"tsc", "start":"node dist/server.js", "typecheck":"tsc --noEmit", "test":"vitest run"},
+  "dependencies": {"fastify":"5.12.8"},
+  "devDependencies": {"@types/node":"24.10.1", "typescript":"5.9.3", "tsx":"4.23.15", "vitest":"5.1.0"}
+}

@@ -5,3 +5,5 @@
 - Planning occurred before implementation and is not counted as implementation time.
 - Environment preparation, tests, documents, Git and CI verification are included.
 - Stop new work at the deadline and disclose anything unverified.
+
+- User clarified that each phase should continue immediately once complete; milestone windows are budget estimates, not scheduled waits.
