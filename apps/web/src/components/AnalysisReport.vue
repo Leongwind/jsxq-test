@@ -6,8 +6,11 @@ import type { AnalysisResult } from '../types'
 
 const props = defineProps<{ result: AnalysisResult }>()
 const scoreTone = computed(() => props.result.score >= 80 ? 'strong' : props.result.score >= 60 ? 'medium' : 'developing')
-const scoreLabel = computed(() => props.result.score >= 80 ? '高度覆盖' : props.result.score >= 60 ? '具备基础' : '建议补强')
+const scoreLabel = computed(() => props.result.score >= 80 ? '高度覆盖' : props.result.score >= 60 ? '部分覆盖' : '待补证据')
 const coverage = computed(() => `${props.result.scoreBreakdown.matchedWeight} / ${props.result.scoreBreakdown.totalWeight}`)
+const hasStructuredProfile = computed(() => Boolean(
+  props.result.resume.education.length || props.result.resume.experience.length || props.result.resume.projects.length,
+))
 </script>
 
 <template>
@@ -18,7 +21,7 @@ const coverage = computed(() => `${props.result.scoreBreakdown.matchedWeight} / 
 
     <div class="report-header">
       <div><span class="eyebrow">分析完成 · {{ result.job.title }}</span><h2>你的匹配证据图谱</h2></div>
-      <NTag :bordered="false" round type="success"><template #icon><Icon><CircleCheck /></Icon></template>已验证原文证据</NTag>
+      <NTag :bordered="false" round type="success"><template #icon><Icon><CircleCheck /></Icon></template>技能证据已校验</NTag>
     </div>
 
     <section class="score-card" :class="scoreTone">
@@ -34,6 +37,15 @@ const coverage = computed(() => `${props.result.scoreBreakdown.matchedWeight} / 
       <div class="section-title"><Icon><Wand /></Icon><h3>简历画像</h3></div>
       <p>{{ result.resume.summary }}</p>
       <div v-if="result.resume.skills.length" class="skill-cloud"><NTag v-for="skill in result.resume.skills" :key="skill.name" :bordered="false" size="small">{{ skill.name }}</NTag></div>
+      <NCollapse v-if="hasStructuredProfile" class="profile-details">
+        <NCollapseItem title="查看结构化经历" name="profile">
+          <div class="profile-groups">
+            <section v-if="result.resume.education.length"><h4>教育背景</h4><ul><li v-for="item in result.resume.education" :key="item">{{ item }}</li></ul></section>
+            <section v-if="result.resume.experience.length"><h4>工作或实习经历</h4><ul><li v-for="item in result.resume.experience" :key="item">{{ item }}</li></ul></section>
+            <section v-if="result.resume.projects.length"><h4>项目经历</h4><ul><li v-for="item in result.resume.projects" :key="item">{{ item }}</li></ul></section>
+          </div>
+        </NCollapseItem>
+      </NCollapse>
     </section>
 
     <div class="result-columns">
