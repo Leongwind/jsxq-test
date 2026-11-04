@@ -1,0 +1,74 @@
+name: careerlens
+services:
+  web:
+    image: ghcr.io/leongwind/jsxq-test-web:${IMAGE_TAG:-local}
+    build:
+      context: ./apps/web
+      args:
+        NODE_IMAGE: ${NODE_IMAGE:-node:24-bookworm-slim}
+        NGINX_IMAGE: ${NGINX_IMAGE:-nginx:1.28-alpine}
+    ports:
+      - "127.0.0.1:${WEB_PORT:-8080}:80"
+    depends_on:
+      bff:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+  bff:
+    image: ghcr.io/leongwind/jsxq-test-bff:${IMAGE_TAG:-local}
+    build:
+      context: ./apps/bff
+      args:
+        NODE_IMAGE: ${NODE_IMAGE:-node:24-bookworm-slim}
+        APP_VERSION: ${IMAGE_TAG:-local}
+    environment:
+      JAVA_URL: http://jobs:8081
+    depends_on:
+      jobs:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+  jobs:
+    image: ghcr.io/leongwind/jsxq-test-jobs:${IMAGE_TAG:-local}
+    build:
+      context: ./services/jobs
+      args:
+        MAVEN_IMAGE: ${MAVEN_IMAGE:-maven:3.9.11-eclipse-temurin-21}
+        JAVA_IMAGE: ${JAVA_IMAGE:-eclipse-temurin:21-jre-jammy}
+    environment:
+      ANALYZER_URL: http://analyzer:8000
+    depends_on:
+      analyzer:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "java", "-cp", "/app", "HealthCheck"]
+      interval: 10s
+      timeout: 5s
+      start_period: 30s
+      retries: 10
+    restart: unless-stopped
+  analyzer:
+    image: ghcr.io/leongwind/jsxq-test-analyzer:${IMAGE_TAG:-local}
+    build:
+      context: ./services/analyzer
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:-python:3.12-slim}
+    environment:
+      LLM_BASE_URL: ${LLM_BASE_URL:-https://api.deepseek.com}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_MODEL: ${LLM_MODEL:-deepseek-flash}
+      LLM_MODE: ${LLM_MODE:-live}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
