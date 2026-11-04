@@ -5,9 +5,9 @@
 > 每个命中都回到原文，每个分数都有计算依据。未命中表示「简历未体现」，不等于「不具备能力」。
 
 <details>
-<summary>查看桌面演示截图（明确标注的测试模式）</summary>
+<summary>查看真实 DeepSeek 分析截图</summary>
 
-![CareerLens 桌面工作台](apps/web/evidence/full-chain-desktop.png)
+![CareerLens 桌面工作台](apps/web/evidence/live-desktop.png)
 
 </details>
 

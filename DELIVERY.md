@@ -13,12 +13,12 @@ Vue 3 → Node BFF → Java/Spring Boot → Python → OpenAI-compatible LLM 完
 | BFF | 16 项 Vitest 通过；TypeScript 与生产构建通过 |
 | Java | Java 21 容器内 `mvn -B verify` 通过；10 项 JUnit 通过 |
 | Web | 6 项 Vitest、TypeScript、Vite 构建通过 |
-| Python | 审查修复后 22 项 pytest 与 Ruff 全部通过 |
+| Python | 真实模型兼容修复后 24 项 pytest 与 Ruff 全部通过 |
 | Compose | Linux aarch64 上四服务与独立测试桩均 healthy；仅 127.0.0.1:8080 暴露 |
 | 全链路测试桩 | 真实 HTTP 五层链路返回 200，3 项命中/1 项缺口，权重 9/10，90 分，mode=test |
-| 浏览器 | Chrome 桌面与 Pixel 7 共 4 项 Playwright 通过，其中 2 项不拦截 API |
-| 真实 DeepSeek | 尚未验证，等待用户在本地填写 API key |
-| GitHub CI / GHCR | PR #1 两轮全部通过（41800911602 / 41801960117）；中文历史改写后最终检查与 main 镜像发布继续核验 |
+| 浏览器 | 测试模式 Chrome 桌面与 Pixel 7 共 4 项 Playwright 通过，其中 2 项不拦截 API；真实样例桌面额外 1/1 通过 |
+| 真实 DeepSeek | 已通过真实五层链路；deepseek-flash、mode=live，3 项命中/1 项缺口、90 分 |
+| GitHub CI / GHCR | PR #1 中文历史检查 41803177559 全部通过；真实模型兼容修复将再次通过 PR 检查后合并发布 |
 | 固定版本部署/回滚 | 已实际完成 bba0256 → 4150188 → bba0256，三次健康与岗位冒烟通过 |
 
 全链路测试 requestId 示例：`459b5204-c4bb-493b-9a05-b6e06309fcd7`（测试模式，非真实模型）。
@@ -67,3 +67,11 @@ npm run typecheck && npm test && npm run build
 ## 中文提交历史
 
 根据用户明确要求，已将全部历史提交信息改为中文，保留代码树、提交拆分、作者与原始时间。远端通过精确 force-with-lease 原子更新，未覆盖其他人的提交。历史改写导致 SHA 更新，旧回滚版本 0af54bf / 7b05387 分别对应 4150188 / bba0256；已按新标签再次部署验证，证据文件记录当前历史的版本号。旧 CI 运行仍是真实执行记录，其源树与对应中文提交相同。
+
+## 真实模型验收
+
+2026-11-04 使用本地配置的 DeepSeek 密钥，经 Web → BFF → Java → Python → DeepSeek 完整请求返回成功。模型 `deepseek-flash`，`mode=live`，3 项命中、1 项缺口，匹配分数 90；requestId：`fe190221-97ad-4ee1-978d-fcf86c066bd3`。
+
+首次真实调用曾因模型把项目经历返回为对象而被严格校验拒绝。已明确提示输出字符串，并将常见文本经历对象确定性展平为接口约定的字符串；嵌套对象和非文本值仍拒绝，技能证据与评分规则未放宽。新增两项回归测试后复测成功。没有使用测试桩替代真实结果。
+
+另用题目提供的 Java 简历样例与沐瞳预置岗位完成真实浏览器验收：1/1 Playwright 通过，响应断言 `meta.mode=live`，无横向溢出。该样例得分 28（命中权重 10/总权重 36），与上述最小冒烟输入不同；[真实模型截图](apps/web/evidence/live-desktop.png) 保留了命中、缺口以及被证据校验过滤的提取项。真实模型仍可能遗漏原文技能，因此提示用户核对证据，未将分数表述为录用概率。
