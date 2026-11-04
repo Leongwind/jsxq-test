@@ -1,0 +1,22 @@
+{
+  "bffTests": 16,
+  "webTests": 6,
+  "pythonTests": 22,
+  "javaTests": 10,
+  "javaFailures": 0,
+  "javaErrors": 0,
+  "initialBrowserTests": 4,
+  "fullChainScreenshotTests": 2,
+  "containerPlatform": "linux/arm64",
+  "llmTestModeVerified": true,
+  "liveLlmVerified": false,
+  "latestBrowserTests": 4,
+  "rollbackVerified": true,
+  "rollbackSequence": [
+    "7b05387",
+    "0af54bf",
+    "7b05387"
+  ],
+  "baselineCiRun": "https://github.com/Leongwind/jsxq-test/actions/runs/41800911602",
+  "baselineCiConclusion": "success"
+}

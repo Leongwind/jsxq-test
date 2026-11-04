@@ -4,6 +4,13 @@
 
 > 每个命中都回到原文，每个分数都有计算依据。未命中表示「简历未体现」，不等于「不具备能力」。
 
+<details>
+<summary>查看桌面演示截图（明确标注的测试模式）</summary>
+
+![CareerLens 桌面工作台](apps/web/evidence/full-chain-desktop.png)
+
+</details>
+
 ## 快速启动
 
 需要 Docker Engine 与 Docker Compose。脚本同时支持 `docker compose` 和 `docker-compose`，无需在宿主机安装 Java、Python 或 Node。

@@ -1,0 +1,50 @@
+[
+  {
+    "step": 1,
+    "version": "7b05387",
+    "health": {
+      "status": "ok",
+      "service": "bff",
+      "version": "7b05387"
+    },
+    "images": {
+      "web": "ghcr.io/leongwind/jsxq-test-web:7b05387",
+      "bff": "ghcr.io/leongwind/jsxq-test-bff:7b05387",
+      "jobs": "ghcr.io/leongwind/jsxq-test-jobs:7b05387",
+      "analyzer": "ghcr.io/leongwind/jsxq-test-analyzer:7b05387"
+    },
+    "smoke": "passed"
+  },
+  {
+    "step": 2,
+    "version": "0af54bf",
+    "health": {
+      "status": "ok",
+      "service": "bff",
+      "version": "0af54bf"
+    },
+    "images": {
+      "web": "ghcr.io/leongwind/jsxq-test-web:0af54bf",
+      "bff": "ghcr.io/leongwind/jsxq-test-bff:0af54bf",
+      "jobs": "ghcr.io/leongwind/jsxq-test-jobs:0af54bf",
+      "analyzer": "ghcr.io/leongwind/jsxq-test-analyzer:0af54bf"
+    },
+    "smoke": "passed"
+  },
+  {
+    "step": 3,
+    "version": "7b05387",
+    "health": {
+      "status": "ok",
+      "service": "bff",
+      "version": "7b05387"
+    },
+    "images": {
+      "web": "ghcr.io/leongwind/jsxq-test-web:7b05387",
+      "bff": "ghcr.io/leongwind/jsxq-test-bff:7b05387",
+      "jobs": "ghcr.io/leongwind/jsxq-test-jobs:7b05387",
+      "analyzer": "ghcr.io/leongwind/jsxq-test-analyzer:7b05387"
+    },
+    "smoke": "passed"
+  }
+]

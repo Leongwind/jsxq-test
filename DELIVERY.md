@@ -6,20 +6,20 @@
 
 Vue 3 → Node BFF → Java/Spring Boot → Python → OpenAI-compatible LLM 完整同步链路；简历文本/脱敏样例、预置岗位/自定义 JD、结构化提取、技能证据校验、归一化、确定性评分、问题与缺口解释。四服务 Compose、健康检查、单元/端到端测试、PR CI 与 SHA 镜像发布配置均已提交实现。
 
-## 验证快照（持续更新，不代表最终完成）
+## 已完成的验证
 
 | 项目 | 实际结果 |
 | --- | --- |
 | BFF | 16 项 Vitest 通过；TypeScript 与生产构建通过 |
 | Java | Java 21 容器内 `mvn -B verify` 通过；10 项 JUnit 通过 |
 | Web | 6 项 Vitest、TypeScript、Vite 构建通过 |
-| Python | 初版 15 项 pytest 与 Ruff 通过；审查修复后将重新记录结果 |
+| Python | 审查修复后 22 项 pytest 与 Ruff 全部通过 |
 | Compose | Linux aarch64 上四服务与独立测试桩均 healthy；仅 127.0.0.1:8080 暴露 |
 | 全链路测试桩 | 真实 HTTP 五层链路返回 200，3 项命中/1 项缺口，权重 9/10，90 分，mode=test |
 | 浏览器 | Chrome 桌面与 Pixel 7 共 4 项 Playwright 通过，其中 2 项不拦截 API |
 | 真实 DeepSeek | 尚未验证，等待用户在本地填写 API key |
-| GitHub CI / GHCR | 已编写，远端执行结果待核验 |
-| 固定版本部署/回滚 | 脚本已实现，实际演练待完成 |
+| GitHub CI / GHCR | PR #1 首轮全部通过（run 41800911602）；最终分支检查与 main 镜像发布继续核验 |
+| 固定版本部署/回滚 | 已实际完成 7b05387 → 0af54bf → 7b05387，三次健康与岗位冒烟通过 |
 
 全链路测试 requestId 示例：`459b5204-c4bb-493b-9a05-b6e06309fcd7`（测试模式，非真实模型）。
 
@@ -51,8 +51,15 @@ npm run typecheck && npm test && npm run build
 
 目标是四个服务同一 commit SHA 的镜像集合。远端镜像用 `scripts/deploy.sh <sha>` 拉取并启动；已存在的本机镜像用 `scripts/deploy.sh <sha> --local`。回滚使用上一已验证 SHA，并再次等待健康、执行冒烟。
 
-脚本不自动构建缺失版本，也不在失败时自动选择旧版本；必须显式指定目标。实际演练结果将在完成后追加，脚本存在不等于演练通过。
+脚本不自动构建缺失版本，也不在失败时自动选择旧版本；必须显式指定目标。实际完成三次版本切换，并通过 BFF /health 返回的 version 与四个容器 Config.Image 逐一确认。证据见 [docs/evidence/rollback.json](docs/evidence/rollback.json)。这验证本地镜像版本回滚，不声称验证了远端服务器或自动故障恢复。
 
 ## 答辩与 AI 记录
 
 答辩提纲：docs/DEFENSE.md。AI_LOG.md 记录决策和工具执行摘要；docs/AI_CONVERSATION.md 导出可见用户/助手消息，排除内部推理和工具原始输出，并脱敏密钥。
+
+## 验证证据
+
+- [首轮 GitHub CI](https://github.com/Leongwind/jsxq-test/actions/runs/41800911602)：Python、Web、BFF、Java 和全链路集成全部 success；PR 阶段镜像发布按设计跳过。
+- [桌面截图](apps/web/evidence/full-chain-desktop.png)、[移动截图](apps/web/evidence/full-chain-mobile.png)：最新本地版本完整测试链路，明确标注测试模式。
+- 新版本完整 Playwright 再次 4/4 通过；桌面、移动均检查无横向溢出。
+- DeepSeek /models 从 Python 容器访问在 0.35 秒收到 401，证明网络可达；无密钥业务请求返回 503 LLM_NOT_CONFIGURED。这不是一次真实模型成功调用。

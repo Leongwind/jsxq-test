@@ -24,3 +24,19 @@ Actions: verified empty Git remote and working Linux container engine; cloned re
 
 ## Full visible conversation
 See [docs/AI_CONVERSATION.md](docs/AI_CONVERSATION.md), exported from this chat using scripts/export_ai_log.py. Tool summaries above are separate from the exact visible messages. No internal reasoning is included.
+
+### 16:23–16:34 +08:00
+- Java 21 Maven verification completed successfully: 10 JUnit tests passed and executable JAR packaged.
+- Four business containers plus separate LLM stub became healthy. Full HTTP chain returned 90 (9/10 weight), with request ID preserved.
+- Desktop and mobile Playwright suite passed 4/4; additional full-chain visual capture passed 2/2 with no horizontal overflow, screenshots retained in apps/web/evidence.
+- Python review fixes completed: Unicode keys, safe unexpected-error logging, strict 40s LLM budget, one-way version compatibility. Ruff and 22 pytest passed.
+- Regex P0 concern was withdrawn after character-level inspection and successful BFF/Java/full-chain tests proved the source escaping correct.
+- User-visible local preview opened; report explicitly identifies test mode.
+
+### 16:35–16:45 +08:00
+- Initial feature push failed with an HTTP/2 framing error. Retried using the already-configured local HTTP proxy and HTTP/1.1; push succeeded without changing global Git settings.
+- GitHub connector lacked PR creation permission (403). Used the existing authenticated gh CLI to create draft PR #1. No new permission grant was requested.
+- GitHub run 41800911602 passed all unit/build jobs and Compose/Playwright integration.
+- Added folded structured experience display, corrected evidence/coverage labels, and validated local image presence/custom port in deploy script. Tests/typecheck/build passed.
+- Built and exercised two immutable local image versions. Deployment/rollback sequence 7b05387 → 0af54bf → 7b05387 passed health and jobs smoke each time; actual image names and BFF version were verified.
+- Latest desktop/mobile E2E suite passed 4/4. DeepSeek endpoint is reachable, while missing-key requests correctly return 503 without fallback. Real key remains the external input for live-model verification.
