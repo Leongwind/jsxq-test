@@ -1,0 +1,2 @@
+<script setup lang="ts">import { NIcon as Icon } from 'naive-ui'; import { Scan } from '@vicons/tabler'</script>
+<template><div class="empty-report"><div class="empty-illustration"><Icon size="38"><Scan /></Icon><span class="scan-line"></span></div><span class="eyebrow">等待分析</span><h2>把经历转成<br><em>可行动的差距</em></h2><p>左侧提交材料后，这里会展示有原文证据的技能命中、能力缺口与简历问题。</p><div class="principles"><span>证据可追溯</span><span>分数可复算</span><span>结论可行动</span></div></div></template>
