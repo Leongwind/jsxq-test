@@ -1,0 +1,18 @@
+[
+  {
+    "id": "java-campus",
+    "title": "后端开发工程师（2027 届校招）",
+    "company": "沐瞳科技",
+    "description": "【招聘要求节选整理，完整岗位以来源页面为准】\n岗位面向 2027 届计算机相关专业毕业生，参与企业信息化系统开发与维护。\n必备能力：Java 基础及集合、多线程和 JVM；使用 Spring Boot 编写后端接口；MySQL 数据库与 SQL；REST API 设计和 Git 协作；数据结构、算法、计算机网络基础。\n加分经验：Redis 缓存、消息队列、Docker 容器、微服务；有大模型 API 接入、RAG 或 Agent 项目实践。",
+    "sourceUrl": "https://moonton.jobs.feishu.cn/campus/position/7668255125144176937/detail",
+    "collectedAt": "2026-11-04"
+  },
+  {
+    "id": "vue-intern",
+    "title": "Web 前端实习生（西安）",
+    "company": "海康机器人",
+    "description": "【招聘要求节选整理，完整岗位以来源页面为准】\n参与 Vue 前端页面与组件开发、后端联调、测试维护和性能改进。\n必备能力：HTML5、CSS3、JavaScript（ES6+）、AJAX；Flex 与 Grid 布局，Less 或 Sass；Vue 组件、指令及生命周期；异步编程、闭包与原型链；Webpack、ESLint 等工程化工具；WebSocket 长连接、HTTP/HTTPS 与 RESTful API。\n加分经验：Vue 3 与 TypeScript 项目、Vuex、Vue Router、Element UI、Vite、Canvas 绘图与 Konva。",
+    "sourceUrl": "https://talent.hikvision.com/home/socity/position?postId=1E0D3816A278D4E7636422677FD43088",
+    "collectedAt": "2026-11-04"
+  }
+]

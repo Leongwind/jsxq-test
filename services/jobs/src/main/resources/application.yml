@@ -1,0 +1,22 @@
+server:
+  port: 8081
+  error:
+    include-message: never
+    include-stacktrace: never
+spring:
+  application:
+    name: careerlens-jobs
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+      fail-on-null-for-primitives: true
+analyzer:
+  url: ${ANALYZER_URL:http://localhost:8000}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
