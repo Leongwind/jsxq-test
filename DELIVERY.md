@@ -18,8 +18,8 @@ Vue 3 → Node BFF → Java/Spring Boot → Python → OpenAI-compatible LLM 完
 | 全链路测试桩 | 真实 HTTP 五层链路返回 200，3 项命中/1 项缺口，权重 9/10，90 分，mode=test |
 | 浏览器 | Chrome 桌面与 Pixel 7 共 4 项 Playwright 通过，其中 2 项不拦截 API |
 | 真实 DeepSeek | 尚未验证，等待用户在本地填写 API key |
-| GitHub CI / GHCR | PR #1 首轮全部通过（run 41800911602）；最终分支检查与 main 镜像发布继续核验 |
-| 固定版本部署/回滚 | 已实际完成 7b05387 → 0af54bf → 7b05387，三次健康与岗位冒烟通过 |
+| GitHub CI / GHCR | PR #1 两轮全部通过（41800911602 / 41801960117）；中文历史改写后最终检查与 main 镜像发布继续核验 |
+| 固定版本部署/回滚 | 已实际完成 bba0256 → 4150188 → bba0256，三次健康与岗位冒烟通过 |
 
 全链路测试 requestId 示例：`459b5204-c4bb-493b-9a05-b6e06309fcd7`（测试模式，非真实模型）。
 
@@ -63,3 +63,7 @@ npm run typecheck && npm test && npm run build
 - [桌面截图](apps/web/evidence/full-chain-desktop.png)、[移动截图](apps/web/evidence/full-chain-mobile.png)：最新本地版本完整测试链路，明确标注测试模式。
 - 新版本完整 Playwright 再次 4/4 通过；桌面、移动均检查无横向溢出。
 - DeepSeek /models 从 Python 容器访问在 0.35 秒收到 401，证明网络可达；无密钥业务请求返回 503 LLM_NOT_CONFIGURED。这不是一次真实模型成功调用。
+
+## 中文提交历史
+
+根据用户明确要求，已将全部历史提交信息改为中文，保留代码树、提交拆分、作者与原始时间。远端通过精确 force-with-lease 原子更新，未覆盖其他人的提交。历史改写导致 SHA 更新，旧回滚版本 0af54bf / 7b05387 分别对应 4150188 / bba0256；已按新标签再次部署验证，证据文件记录当前历史的版本号。旧 CI 运行仍是真实执行记录，其源树与对应中文提交相同。

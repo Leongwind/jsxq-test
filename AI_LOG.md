@@ -40,3 +40,8 @@ See [docs/AI_CONVERSATION.md](docs/AI_CONVERSATION.md), exported from this chat 
 - Added folded structured experience display, corrected evidence/coverage labels, and validated local image presence/custom port in deploy script. Tests/typecheck/build passed.
 - Built and exercised two immutable local image versions. Deployment/rollback sequence 7b05387 → 0af54bf → 7b05387 passed health and jobs smoke each time; actual image names and BFF version were verified.
 - Latest desktop/mobile E2E suite passed 4/4. DeepSeek endpoint is reachable, while missing-key requests correctly return 503 without fallback. Real key remains the external input for live-model verification.
+
+### 中文提交信息要求与历史改写
+用户明确要求所有提交信息使用中文，包括已推送的历史提交。先核对远端 main 和 feat/career-lens 的精确 SHA，再逐条重建提交对象：仅修改提交说明和父提交引用，逐项断言代码树、作者、提交者及原始时间不变。最后用带精确期望 SHA 的原子 force-with-lease 推送两个分支，未覆盖任何新增远端提交。全部 7 条提交及 PR 标题已中文化；后续提交与合并说明也使用中文。
+原先回滚版本 0af54bf / 7b05387 对应新历史的 4150188 / bba0256。镜像标签同步后重新验证版本回滚，不把旧执行记录伪装成新 SHA 的执行。
+用户同时明确要求先完成其余交付，API key 稍后填写；真实 DeepSeek 成功调用继续标为待验收。

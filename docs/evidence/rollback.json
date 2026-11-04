@@ -1,49 +1,49 @@
 [
   {
     "step": 1,
-    "version": "7b05387",
+    "version": "bba0256",
     "health": {
       "status": "ok",
       "service": "bff",
-      "version": "7b05387"
+      "version": "bba0256"
     },
     "images": {
-      "web": "ghcr.io/leongwind/jsxq-test-web:7b05387",
-      "bff": "ghcr.io/leongwind/jsxq-test-bff:7b05387",
-      "jobs": "ghcr.io/leongwind/jsxq-test-jobs:7b05387",
-      "analyzer": "ghcr.io/leongwind/jsxq-test-analyzer:7b05387"
+      "web": "ghcr.io/leongwind/jsxq-test-web:bba0256",
+      "bff": "ghcr.io/leongwind/jsxq-test-bff:bba0256",
+      "jobs": "ghcr.io/leongwind/jsxq-test-jobs:bba0256",
+      "analyzer": "ghcr.io/leongwind/jsxq-test-analyzer:bba0256"
     },
     "smoke": "passed"
   },
   {
     "step": 2,
-    "version": "0af54bf",
+    "version": "4150188",
     "health": {
       "status": "ok",
       "service": "bff",
-      "version": "0af54bf"
+      "version": "4150188"
     },
     "images": {
-      "web": "ghcr.io/leongwind/jsxq-test-web:0af54bf",
-      "bff": "ghcr.io/leongwind/jsxq-test-bff:0af54bf",
-      "jobs": "ghcr.io/leongwind/jsxq-test-jobs:0af54bf",
-      "analyzer": "ghcr.io/leongwind/jsxq-test-analyzer:0af54bf"
+      "web": "ghcr.io/leongwind/jsxq-test-web:4150188",
+      "bff": "ghcr.io/leongwind/jsxq-test-bff:4150188",
+      "jobs": "ghcr.io/leongwind/jsxq-test-jobs:4150188",
+      "analyzer": "ghcr.io/leongwind/jsxq-test-analyzer:4150188"
     },
     "smoke": "passed"
   },
   {
     "step": 3,
-    "version": "7b05387",
+    "version": "bba0256",
     "health": {
       "status": "ok",
       "service": "bff",
-      "version": "7b05387"
+      "version": "bba0256"
     },
     "images": {
-      "web": "ghcr.io/leongwind/jsxq-test-web:7b05387",
-      "bff": "ghcr.io/leongwind/jsxq-test-bff:7b05387",
-      "jobs": "ghcr.io/leongwind/jsxq-test-jobs:7b05387",
-      "analyzer": "ghcr.io/leongwind/jsxq-test-analyzer:7b05387"
+      "web": "ghcr.io/leongwind/jsxq-test-web:bba0256",
+      "bff": "ghcr.io/leongwind/jsxq-test-bff:bba0256",
+      "jobs": "ghcr.io/leongwind/jsxq-test-jobs:bba0256",
+      "analyzer": "ghcr.io/leongwind/jsxq-test-analyzer:bba0256"
     },
     "smoke": "passed"
   }

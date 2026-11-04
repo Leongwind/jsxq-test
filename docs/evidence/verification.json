@@ -13,10 +13,11 @@
   "latestBrowserTests": 4,
   "rollbackVerified": true,
   "rollbackSequence": [
-    "7b05387",
-    "0af54bf",
-    "7b05387"
+    "bba0256",
+    "4150188",
+    "bba0256"
   ],
   "baselineCiRun": "https://github.com/Leongwind/jsxq-test/actions/runs/41800911602",
-  "baselineCiConclusion": "success"
+  "baselineCiConclusion": "success",
+  "commitMessages": "Chinese, original author/committer dates and source trees preserved"
 }
