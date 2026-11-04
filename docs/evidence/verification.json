@@ -33,5 +33,18 @@
   "chineseHistoryCiConclusion": "success",
   "liveBrowserTests": 1,
   "liveBrowserModeAssertion": "live",
-  "liveBrowserScreenshot": "apps/web/evidence/live-desktop.png"
+  "liveBrowserScreenshot": "apps/web/evidence/live-desktop.png",
+  "finalImplementationPr": "https://github.com/Leongwind/jsxq-test/pull/1",
+  "finalImplementationCiRun": "https://github.com/Leongwind/jsxq-test/actions/runs/41804859081",
+  "finalImplementationCiConclusion": "success",
+  "mergeCommit": "71f8c742cd94961e2af4bd8301e351a43341b6de",
+  "publishCiRun": "https://github.com/Leongwind/jsxq-test/actions/runs/41805411105",
+  "publishCiConclusion": "success",
+  "publishedRelease": "71f8c742cd94961e2af4bd8301e351a43341b6de",
+  "multiarchManifestVerified": true,
+  "anonymousRegistryAccessVerified": true,
+  "ghcrPullAndDeploymentVerified": true,
+  "ghcrRunningDigestsVerified": true,
+  "ghcrDeploymentPlatform": "linux/arm64",
+  "ghcrLiveSmokeRequestId": "ace90ff6-a57c-44b4-9226-fbf7d51ad5ef"
 }

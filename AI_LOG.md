@@ -55,3 +55,9 @@ See [docs/AI_CONVERSATION.md](docs/AI_CONVERSATION.md), exported from this chat 
 修复镜像 10de49d 部署后，真实 DeepSeek 全链路返回 90 分、3 项命中和 1 项缺口，mode=live、model=deepseek-flash，requestId=fe190221-97ad-4ee1-978d-fcf86c066bd3。密钥仅留在忽略的本地配置和分析服务环境中；继续完成真实样例页面验收与远端发布。
 
 真实样例页面验收：题目 Java 简历与沐瞳预置岗位，通过桌面 Playwright 实际链路 1/1；显式断言 mode=live，页面无横向溢出。截图保留于 apps/web/evidence/live-desktop.png，样例分数 28（权重10/36），与最小冒烟输入的90分分别记录。安全扫描确认真实本地密钥没有出现在任何已跟踪文件中，.env 正确忽略。
+
+### 主分支合并与镜像发布
+PR #1 最终检查 41804859081 全部通过，保留中文阶段提交，以中文合并说明生成 main 提交 71f8c742cd94961e2af4bd8301e351a43341b6de。主分支流水线 41805411105 完成所有检查及四个镜像发布。通过 GHCR 匿名 token 与 OCI 清单读取核验四个服务均含 amd64/arm64，记录镜像索引摘要。后续交付材料固定引用这一实际验证版本。
+
+### 发布镜像实际部署验收
+四个镜像均从 GHCR 成功拉取；执行 scripts/deploy.sh 71f8c742cd94961e2af4bd8301e351a43341b6de，全部健康。逐一断言运行 Image ID 等于下载镜像，RepoDigest 匹配注册表索引摘要，平台 linux/arm64。发布镜像上的真实 DeepSeek 冒烟再次成功：90分、mode=live、requestId=ace90ff6-a57c-44b4-9226-fbf7d51ad5ef。最终证据补充通过独立文档提交保留，不修改已验收业务代码。
