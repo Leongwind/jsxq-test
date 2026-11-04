@@ -3,10 +3,12 @@ import json
 
 import httpx
 import pytest
+from pydantic import ValidationError
 
 from app.config import Settings
 from app.errors import ServiceError
 from app.llm import _chat_url, _provider_options, extract_with_llm
+from app.models import LlmExtraction
 
 
 def test_chat_url_accepts_base_with_or_without_v1() -> None:
@@ -68,3 +70,40 @@ async def test_llm_timeout_is_a_strict_total_budget(monkeypatch: pytest.MonkeyPa
         )
     assert captured.value.status_code == 504
     assert captured.value.code == "UPSTREAM_TIMEOUT"
+
+
+def test_deepseek_structured_resume_section_is_deterministically_flattened() -> None:
+    extraction = LlmExtraction.model_validate(
+        {
+            "summary": "后端候选人",
+            "education": [{"school": "某大学", "degree": "本科", "major": "计算机"}],
+            "experience": [],
+            "projects": [
+                {
+                    "name": "订单系统",
+                    "description": "开发订单接口",
+                    "technologies": ["Java", "Spring Boot"],
+                }
+            ],
+            "skills": [],
+            "requirements": [],
+            "issues": [],
+        }
+    )
+    assert extraction.education == ["学校：某大学；学历：本科；专业：计算机"]
+    assert extraction.projects == ["名称：订单系统；描述：开发订单接口；技术：Java、Spring Boot"]
+
+
+def test_nested_structured_resume_section_remains_invalid() -> None:
+    with pytest.raises(ValidationError):
+        LlmExtraction.model_validate(
+            {
+                "summary": "",
+                "education": [],
+                "experience": [],
+                "projects": [{"name": {"nested": "not allowed"}}],
+                "skills": [],
+                "requirements": [],
+                "issues": [],
+            }
+        )

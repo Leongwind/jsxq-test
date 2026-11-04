@@ -13,11 +13,13 @@ ASYNCIO_TIMEOUT = getattr(asyncio, "TimeoutError", TimeoutError)
 
 SYSTEM_PROMPT = """你是简历事实提取器。只根据提供的简历与岗位原文输出 JSON，不评分，不猜测。
 必须输出且仅输出这个 JSON 对象：
-{"summary":"", "education":[], "experience":[], "projects":[],
+{"summary":"", "education":["教育经历文本"], "experience":["工作经历文本"],
+ "projects":["项目经历文本"],
  "skills":[{"name":"技能名","evidence":"含该技能名的简历原文连续片段"}],
  "requirements":[{"name":"技能名","priority":"required或preferred","evidence":"含该技能名的岗位原文连续片段"}],
  "issues":[{"type":"structure或impact或clarity","severity":"info或warning","evidence":"简历原文连续片段；缺失类问题可为空","suggestion":"具体建议"}]}
-规则：数组不可省略。技能证据和岗位证据必须是对应原文的连续片段，并明确包含技能名称或常用别名。
+规则：数组不可省略。education、experience、projects 的每个元素必须是字符串，禁止输出对象或嵌套数组。
+技能证据和岗位证据必须是对应原文的连续片段，并明确包含技能名称或常用别名。
 必备要求标为 required，明确写明优先/加分的要求标为 preferred。不得把职责、软技能或学历当作技术技能。
 不得输出简历或岗位中没有的事实，不得输出 Markdown。"""
 

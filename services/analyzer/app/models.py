@@ -59,6 +59,50 @@ class LlmExtraction(StrictModel):
     requirements: list[ExtractedRequirement]
     issues: list[ResumeIssue]
 
+    @field_validator("education", "experience", "projects", mode="before")
+    @classmethod
+    def flatten_structured_sections(cls, value: object) -> object:
+        if not isinstance(value, list):
+            return value
+        normalized: list[object] = []
+        labels = {
+            "name": "名称",
+            "title": "名称",
+            "school": "学校",
+            "degree": "学历",
+            "major": "专业",
+            "company": "公司",
+            "role": "职责",
+            "duration": "时间",
+            "description": "描述",
+            "details": "详情",
+            "technologies": "技术",
+            "tech_stack": "技术栈",
+            "achievements": "成果",
+        }
+        for item in value:
+            if not isinstance(item, dict):
+                normalized.append(item)
+                continue
+            parts: list[str] = []
+            for raw_key, raw_value in item.items():
+                if not isinstance(raw_key, str):
+                    raise ValueError("section object keys must be strings")
+                if isinstance(raw_value, str):
+                    text = raw_value.strip()
+                elif isinstance(raw_value, list) and all(
+                    isinstance(element, str) for element in raw_value
+                ):
+                    text = "、".join(element.strip() for element in raw_value if element.strip())
+                else:
+                    raise ValueError("section object values must be strings or string arrays")
+                if text:
+                    parts.append(f"{labels.get(raw_key.casefold(), raw_key)}：{text}")
+            if not parts:
+                raise ValueError("section object must contain text")
+            normalized.append("；".join(parts))
+        return normalized
+
 
 class ResponseJob(StrictModel):
     id: str
