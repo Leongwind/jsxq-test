@@ -117,6 +117,8 @@ PLAYWRIGHT_BASE_URL=http://localhost:8082 npm run e2e
 
 ## Git、发布与回滚
 
+已验收发布版本：`71f8c742cd94961e2af4bd8301e351a43341b6de`。四个服务已发布 amd64/arm64 镜像，注册表清单与实际部署证据见 [DELIVERY.md](DELIVERY.md)。
+
 通过 `feat/career-lens` → PR → `main` 保留提交历史。PR 运行验证；`main` 验证通过后，发布四个服务的 linux/amd64 与 linux/arm64 镜像，标签为完整 commit SHA：
 
 `ghcr.io/leongwind/jsxq-test-{web,bff,jobs,analyzer}:<commit-sha>`

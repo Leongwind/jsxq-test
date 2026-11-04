@@ -18,7 +18,7 @@ Vue 3 → Node BFF → Java/Spring Boot → Python → OpenAI-compatible LLM 完
 | 全链路测试桩 | 真实 HTTP 五层链路返回 200，3 项命中/1 项缺口，权重 9/10，90 分，mode=test |
 | 浏览器 | 测试模式 Chrome 桌面与 Pixel 7 共 4 项 Playwright 通过，其中 2 项不拦截 API；真实样例桌面额外 1/1 通过 |
 | 真实 DeepSeek | 已通过真实五层链路；deepseek-flash、mode=live，3 项命中/1 项缺口、90 分 |
-| GitHub CI / GHCR | PR #1 中文历史检查 41803177559 全部通过；真实模型兼容修复将再次通过 PR 检查后合并发布 |
+| GitHub CI / GHCR | PR #1 与 main 检查全部通过；四镜像 amd64/arm64 发布成功、匿名清单核验通过，并实际拉取部署 |
 | 固定版本部署/回滚 | 已实际完成 bba0256 → 4150188 → bba0256，三次健康与岗位冒烟通过 |
 
 全链路测试 requestId 示例：`459b5204-c4bb-493b-9a05-b6e06309fcd7`（测试模式，非真实模型）。
@@ -62,7 +62,7 @@ npm run typecheck && npm test && npm run build
 - [首轮 GitHub CI](https://github.com/Leongwind/jsxq-test/actions/runs/41800911602)：Python、Web、BFF、Java 和全链路集成全部 success；PR 阶段镜像发布按设计跳过。
 - [桌面截图](apps/web/evidence/full-chain-desktop.png)、[移动截图](apps/web/evidence/full-chain-mobile.png)：最新本地版本完整测试链路，明确标注测试模式。
 - 新版本完整 Playwright 再次 4/4 通过；桌面、移动均检查无横向溢出。
-- DeepSeek /models 从 Python 容器访问在 0.35 秒收到 401，证明网络可达；无密钥业务请求返回 503 LLM_NOT_CONFIGURED。这不是一次真实模型成功调用。
+- 初期无密钥时，DeepSeek /models 返回 401，业务请求返回 503 LLM_NOT_CONFIGURED；随后配置密钥并完成真实模型成功验收，见下节。
 
 ## 中文提交历史
 
@@ -75,3 +75,17 @@ npm run typecheck && npm test && npm run build
 首次真实调用曾因模型把项目经历返回为对象而被严格校验拒绝。已明确提示输出字符串，并将常见文本经历对象确定性展平为接口约定的字符串；嵌套对象和非文本值仍拒绝，技能证据与评分规则未放宽。新增两项回归测试后复测成功。没有使用测试桩替代真实结果。
 
 另用题目提供的 Java 简历样例与沐瞳预置岗位完成真实浏览器验收：1/1 Playwright 通过，响应断言 `meta.mode=live`，无横向溢出。该样例得分 28（命中权重 10/总权重 36），与上述最小冒烟输入不同；[真实模型截图](apps/web/evidence/live-desktop.png) 保留了命中、缺口以及被证据校验过滤的提取项。真实模型仍可能遗漏原文技能，因此提示用户核对证据，未将分数表述为录用概率。
+
+## 已发布镜像
+
+[主分支发布流水线](https://github.com/Leongwind/jsxq-test/actions/runs/41805411105) 全部成功，发布版本为 `71f8c742cd94961e2af4bd8301e351a43341b6de`。四个服务镜像的注册表清单均已匿名读取，逐项确认同时包含 `linux/amd64` 与 `linux/arm64`；索引摘要记录在 [registry-release.json](docs/evidence/registry-release.json)。
+
+```bash
+scripts/deploy.sh 71f8c742cd94961e2af4bd8301e351a43341b6de
+```
+
+此版本为完整功能合并提交。后续提交仅补充交付材料；这里固定引用实际经过发布、清单核验与部署验收的版本，不使用浮动 latest 标签。
+
+发布后，已从 GHCR 拉取四个镜像，在 Linux arm64 容器环境执行上述部署命令；逐一核对运行容器 Image ID 与下载镜像一致，RepoDigest 与注册表清单摘要一致，四服务健康。部署后的真实 DeepSeek 全链路再次返回 90 分、mode=live，requestId：`ace90ff6-a57c-44b4-9226-fbf7d51ad5ef`。完整可机器读取记录见 [ghcr-deployment.json](docs/evidence/ghcr-deployment.json)。
+
+已完成本地固定版本回滚与 GHCR 发布版本部署，两者分别保留证据；没有公网服务器部署。

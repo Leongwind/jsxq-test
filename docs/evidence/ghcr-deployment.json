@@ -1,0 +1,52 @@
+{
+  "commit": "71f8c742cd94961e2af4bd8301e351a43341b6de",
+  "source": "GitHub Actions published images pulled from GHCR",
+  "command": "scripts/deploy.sh 71f8c742cd94961e2af4bd8301e351a43341b6de",
+  "bffHealth": {
+    "status": "ok",
+    "service": "bff",
+    "version": "71f8c742cd94961e2af4bd8301e351a43341b6de"
+  },
+  "images": [
+    {
+      "service": "web",
+      "image": "ghcr.io/leongwind/jsxq-test-web:71f8c742cd94961e2af4bd8301e351a43341b6de",
+      "indexDigest": "sha256:7e082f2107a0e3580fa8013593b07af71ec9e85f59f121d2fa71d997f4451d37",
+      "imageId": "sha256:7e082f2107a0e3580fa8013593b07af71ec9e85f59f121d2fa71d997f4451d37",
+      "platform": "linux/arm64",
+      "health": "healthy"
+    },
+    {
+      "service": "bff",
+      "image": "ghcr.io/leongwind/jsxq-test-bff:71f8c742cd94961e2af4bd8301e351a43341b6de",
+      "indexDigest": "sha256:c3e32caf23a5fc430bdcbb50e2b369b644f8125d821d9f5dbcd6667b59dbd29c",
+      "imageId": "sha256:c3e32caf23a5fc430bdcbb50e2b369b644f8125d821d9f5dbcd6667b59dbd29c",
+      "platform": "linux/arm64",
+      "health": "healthy"
+    },
+    {
+      "service": "jobs",
+      "image": "ghcr.io/leongwind/jsxq-test-jobs:71f8c742cd94961e2af4bd8301e351a43341b6de",
+      "indexDigest": "sha256:20863d73db869606f59d399e886a9e25be65bd05e4a9cfb411c4dc6615d53738",
+      "imageId": "sha256:20863d73db869606f59d399e886a9e25be65bd05e4a9cfb411c4dc6615d53738",
+      "platform": "linux/arm64",
+      "health": "healthy"
+    },
+    {
+      "service": "analyzer",
+      "image": "ghcr.io/leongwind/jsxq-test-analyzer:71f8c742cd94961e2af4bd8301e351a43341b6de",
+      "indexDigest": "sha256:151bdb8ba2256dbc021d2be97717e2d6a942ad8e05b74e52f9c9312f74235ce2",
+      "imageId": "sha256:151bdb8ba2256dbc021d2be97717e2d6a942ad8e05b74e52f9c9312f74235ce2",
+      "platform": "linux/arm64",
+      "health": "healthy"
+    }
+  ],
+  "liveSmoke": {
+    "score": 90,
+    "mode": "live",
+    "requestId": "ace90ff6-a57c-44b4-9226-fbf7d51ad5ef",
+    "model": "deepseek-flash",
+    "matched": 3,
+    "missing": 1
+  }
+}
